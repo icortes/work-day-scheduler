@@ -1,8 +1,5 @@
 $(document).ready(function () {
 
-    console.log(moment());
-    console.log(moment().format());
-
     //constantly update current time
     var updateDate = function () {
         var currentDay = moment().format('MMMM Qo, YYYY');
@@ -11,17 +8,23 @@ $(document).ready(function () {
     //initially set date
     updateDate();
 
+    var counter = 0;
+    //variable to store arrays in local storage
+    var hourArr = [nine, ten, eleven, twelve, one, two, three, four, five];
+
     //timeblock class
     class timeBlock {
         //massage to be stored
-        message="";
+        message = "";
+        index;
         constructor(time) {
             this.time = time;
         }
         //sets message to the object
-        set setMessage(message){
+        set setMessage(message) {
             this.message = message;
         }
+        //sets the index of the timeBlock object
         //will make a new row for the table
         makeTimeBlock() {
 
@@ -43,10 +46,21 @@ $(document).ready(function () {
             //add classes to the button
             saveBtn.addClass('col col-1 saveBtn');
 
+            //add custom id to textarea
+            textArea.attr('id', 'textarea-' + counter);
+            //add custom id to button
+            saveBtn.attr('id', 'btn-' + counter);
+
             //add time in the hour column
             hour.text(this.time);
             //add 💾 to save button
             saveBtn.text('💾');
+
+            //add color to textarea
+            this.#colorTextArea(textArea);
+
+            //sets index
+            this.index = counter;
 
             //append columns to row
             row.append(hour);
@@ -55,12 +69,48 @@ $(document).ready(function () {
 
             //append row to container
             $('.container').append(row);
+
+            //add click listener to save button
+            $("button#btn-" + counter).click(function (event) {
+                event.preventDefault();
+                //get the value inside textarea
+                var message = $("textarea#textarea-" + counter).val();
+                console.log(message);
+                //grab array of timeBlocks from local storage
+                var storedTimes = JSON.parse(localStorage.getItem("hour"));
+                console.log(storedTimes);
+                //copy our message to the object
+                hourArr[this.index].setMessage() = message;
+                
+                
+               
+                
+
+            });
+
+            counter++;
         }
 
         //method to color the timeblocks appropriately
-        #colorRow(row){
+        #colorTextArea(textarea) {
             //fetch current hour
             var currentHour = moment().hour();
+            //store this.time in new var converted to 24hr time
+            var newTime = moment("1 PM", ["h A"]).format("HH");
+            //if this.time is less than currentHour
+            if (newTime < currentHour) {
+                //add class 'past' to row
+                textarea.addClass("past");
+            }
+            //if this.time is equal to currentHour
+            else if (newTime == currentHour) {
+                //add class 'present' to row
+                textarea.addClass("present");
+            }
+            //else add class 'future'
+            else {
+                textarea.addClass("future");
+            }
         }
 
     }
@@ -74,7 +124,6 @@ $(document).ready(function () {
     var three = new timeBlock("3 PM");
     var four = new timeBlock("4 PM");
     var five = new timeBlock("5 PM")
-    console.log(nine);
 
     //call makeTimeBLock() to each object
     nine.makeTimeBlock();
@@ -86,4 +135,5 @@ $(document).ready(function () {
     three.makeTimeBlock();
     four.makeTimeBlock();
     five.makeTimeBlock();
+
 });
