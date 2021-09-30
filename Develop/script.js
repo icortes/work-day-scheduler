@@ -7,22 +7,21 @@ $(document).ready(function () {
     }
     //initially set date
     updateDate();
-
+    //counter for id names
     var counter = 0;
-    //variable to store arrays in local storage
-    var hourArr = [nine, ten, eleven, twelve, one, two, three, four, five];
 
     //timeblock class
     class timeBlock {
         //massage to be stored
         message = "";
-        index;
-        constructor(time) {
+        index = 0;
+        constructor(time, index) {
             this.time = time;
+            this.index = index;
         }
-        //sets message to the object
-        set setMessage(message) {
-            this.message = message;
+        //get index
+        get getIndex() {
+            return this.index;
         }
         //sets the index of the timeBlock object
         //will make a new row for the table
@@ -59,9 +58,6 @@ $(document).ready(function () {
             //add color to textarea
             this.#colorTextArea(textArea);
 
-            //sets index
-            this.index = counter;
-
             //append columns to row
             row.append(hour);
             row.append(textArea);
@@ -69,24 +65,6 @@ $(document).ready(function () {
 
             //append row to container
             $('.container').append(row);
-
-            //add click listener to save button
-            $("button#btn-" + counter).click(function (event) {
-                event.preventDefault();
-                //get the value inside textarea
-                var message = $("textarea#textarea-" + counter).val();
-                console.log(message);
-                //grab array of timeBlocks from local storage
-                var storedTimes = JSON.parse(localStorage.getItem("hour"));
-                console.log(storedTimes);
-                //copy our message to the object
-                hourArr[this.index].setMessage() = message;
-                
-                
-               
-                
-
-            });
 
             counter++;
         }
@@ -115,15 +93,15 @@ $(document).ready(function () {
 
     }
     //create timeblocks
-    var nine = new timeBlock("9 AM");
-    var ten = new timeBlock("10 AM");
-    var eleven = new timeBlock("11 AM");
-    var twelve = new timeBlock("12 PM");
-    var one = new timeBlock("1 PM");
-    var two = new timeBlock("2 PM");
-    var three = new timeBlock("3 PM");
-    var four = new timeBlock("4 PM");
-    var five = new timeBlock("5 PM")
+    var nine = new timeBlock("9 AM", 0);
+    var ten = new timeBlock("10 AM", 1);
+    var eleven = new timeBlock("11 AM", 2);
+    var twelve = new timeBlock("12 PM", 3);
+    var one = new timeBlock("1 PM", 4);
+    var two = new timeBlock("2 PM", 5);
+    var three = new timeBlock("3 PM", 6);
+    var four = new timeBlock("4 PM", 7);
+    var five = new timeBlock("5 PM", 8)
 
     //call makeTimeBLock() to each object
     nine.makeTimeBlock();
@@ -135,5 +113,36 @@ $(document).ready(function () {
     three.makeTimeBlock();
     four.makeTimeBlock();
     five.makeTimeBlock();
+
+    //variable to store arrays in local storage
+    var hourArr = [nine, ten, eleven, twelve, one, two, three, four, five];
+
+    //add click listener to save button
+    function addClickToButton(time) {
+        $("button#btn-" + time.getIndex).click(function (event) {
+            event.preventDefault();
+            console.log(time.getIndex);
+            //get the value inside textarea
+            var message = $("textarea#textarea-" + time.getIndex).val();
+            console.log(message);
+            //grab array of timeBlocks from local storage
+            var storedTimes = JSON.parse(localStorage.getItem("workHours"));
+            console.log(storedTimes);
+           //if storedTines has content
+            if(storedTimes !== null){
+            //copy our message to the object
+            hourArr[time.getIndex].message = message;
+            }
+            //if not copy the hoursArr into storedTimes
+            else{
+                hourArr[time.getIndex].message = message;
+                storedTimes = hourArr;
+            }
+            //store our updated array in local storage
+            localStorage.setItem("workHours",JSON.stringify(hourArr));
+        });
+    }
+
+    addClickToButton(nine);
 
 });
