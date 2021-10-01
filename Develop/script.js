@@ -7,14 +7,17 @@ $(document).ready(function () {
     }
     //initially set date
     updateDate();
-    //counter for id names
-    var counter = 0;
+
+    //load saved messages from local storage
+    $(function loadMessages(){
+        //get data from local storage
+        var storageSaved = JSON.parse(localStorage.getItem(""))
+    });
 
     //timeblock class
     class timeBlock {
         //massage to be stored
         message = "";
-        id = 0;
         constructor(time) {
             this.time = time;
         }
@@ -61,7 +64,6 @@ $(document).ready(function () {
             //append row to container
             $('.container').append(row);
 
-            counter++;
         }
 
         //method to color the timeblocks appropriately
@@ -122,8 +124,21 @@ $(document).ready(function () {
         //get content in the textarea
         var content = textarea.val();
         console.log(content);
-        //
-
+        console.log(hourArr);
+        //get specific time of target element
+        var targetTime = btn.parent().parent().children(".hour").text();
+        //traverse whole array of timeblocks to get matching element
+        for(var i = 0; i < hourArr.length; i++){
+            //if target time is equal to hourArr[i]
+            if(targetTime === hourArr[i].time){
+                //update content in timeBlock object
+                hourArr[i].message = content;
+                console.log(hourArr[i].message);
+                //save to local storage
+                localStorage.setItem("schedule", JSON.stringify(hourArr));
+            }
+        
+        }
     }
 
     $(".row").on("click", ".fas", addClickToButtons);
