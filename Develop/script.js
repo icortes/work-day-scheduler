@@ -8,12 +8,6 @@ $(document).ready(function () {
     //initially set date
     updateDate();
 
-    //load saved messages from local storage
-    $(function loadMessages(){
-        //get data from local storage
-        var storageSaved = JSON.parse(localStorage.getItem(""))
-    });
-
     //timeblock class
     class timeBlock {
         //massage to be stored
@@ -45,7 +39,7 @@ $(document).ready(function () {
             saveBtn.addClass('col col-1 saveBtn');
             //add classes to bootstrap icon
             icon.addClass('fas fa-save fa-2x');
-    
+
             //add time in the hour column
             hour.text(this.time);
             //add icon  to save button
@@ -113,9 +107,33 @@ $(document).ready(function () {
 
     //variable to store arrays in local storage
     var hourArr = [nine, ten, eleven, twelve, one, two, three, four, five];
+    //get all the timeblocks in one variable
+    const allTimeBlocks = document.querySelectorAll('.row');
+    console.log(allTimeBlocks);
+
+    //load saved messages from local storage
+    $(function loadMessages() {
+        //get data from local storage
+        var storageSaved = JSON.parse(localStorage.getItem("schedule"));
+        //if the key exists
+        if (storageSaved !== null) {
+            console.log(storageSaved);
+            //for loop to traverse every element
+            for (var i = 0; i < allTimeBlocks.length; i++) {
+                //place data into textarea
+                console.log(storageSaved);
+                allTimeBlocks[i].childNodes[1].innerHTML = storageSaved[i].message;
+            }
+        }
+        //do nothing if key doesn't exist
+        else{
+            return;
+        }
+    });
 
     //add click listener to save button
     function addClickToButtons(e) {
+        e.preventDefault();
         //get button element
         var btn = $(e.target);
         //get textarea using dom traversal
@@ -124,23 +142,24 @@ $(document).ready(function () {
         //get content in the textarea
         var content = textarea.val();
         console.log(content);
-        console.log(hourArr);
+        //console.log(hourArr);
         //get specific time of target element
         var targetTime = btn.parent().parent().children(".hour").text();
+        //console.log(targetTime);
         //traverse whole array of timeblocks to get matching element
-        for(var i = 0; i < hourArr.length; i++){
+        for (var i = 0; i < hourArr.length; i++) {
             //if target time is equal to hourArr[i]
-            if(targetTime === hourArr[i].time){
+            if (targetTime === hourArr[i].time) {
+                //console.log(hourArr[i].time);
                 //update content in timeBlock object
                 hourArr[i].message = content;
-                console.log(hourArr[i].message);
+                //console.log(hourArr[i].message);
                 //save to local storage
                 localStorage.setItem("schedule", JSON.stringify(hourArr));
             }
-        
+
         }
     }
 
-    $(".row").on("click", ".fas", addClickToButtons);
-
+    $('.row').on("click", ".fas", addClickToButtons);
 });
