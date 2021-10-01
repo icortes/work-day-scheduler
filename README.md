@@ -1,6 +1,6 @@
 # Work Day Scheduler
 
-
+This is a work day scheduler that shows the user the regular nine to five. On the header, the date will changed based on current time. The user is able to write in the text area of each work hour. Based on the current time, the text area will change colors. It will turn to gray if the time had already passed, red if it's the current hour, and green if the time is in the future. Once you have text in the text area, you can save the text. If you refresh the page the text will still remain.
 
 ## Getting Started
 
@@ -42,6 +42,7 @@ This project is licensed under the MIT License
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code, libraries, packages, or UI was used  / inspired from
-* Inspiration
-* etc
+* w3schools.com
+* Bootstrap
+* jQuerry
+* moment.js
