@@ -1,37 +1,21 @@
-# Project Title
+# Work Day Scheduler
 
-One paragraph of project description goes here.
+
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+### Mock-up
+* [Click Here to Open Site](https://icortes.github.io/work-day-scheduler/)
+
+![picture of website](./assets/img/Screenshot.jpg)
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
-
-```
-Give examples
-```
+* Web Browser required.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development environment running.
-
-Say what the step will be:
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
+* No Installation Required.
 
 ## Built With
 
@@ -41,18 +25,16 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Deployed Link
 
-* [See Live Site](#)
+* [See Live Site](https://icortes.github.io/work-day-scheduler/)
 
 
 ## Authors
 
-* **YOUR NAME** 
+* **Isaac Cortes Hernandez** 
 
-- [Link to Portfolio Site](#)
-- [Link to Github](https://github.com/)
-- [Link to LinkedIn](https://www.linkedin.com/)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+- [Link to Portfolio Site](https://icortes.github.io/my-first-portfolio/)
+- [Link to Github](https://github.com/icortes)
+- [Link to LinkedIn](https://www.linkedin.com/in/cortes-isaac)
 
 ## License
 
