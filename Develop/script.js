@@ -38,7 +38,7 @@ $(document).ready(function () {
             //add classes to the button
             saveBtn.addClass('col col-1 saveBtn');
             //add classes to bootstrap icon
-            icon.addClass('fas fa-save fa-2x');
+            icon.addClass('fas fa-save');
 
             //add time in the hour column
             hour.text(this.time);
@@ -121,13 +121,10 @@ $(document).ready(function () {
             //for loop to traverse every element
             for (var i = 0; i < allTimeBlocks.length; i++) {
                 //place data into textarea
-                console.log(storageSaved);
+                console.log(allTimeBlocks[i]);
+                console.log(storageSaved[i]);
                 allTimeBlocks[i].childNodes[1].innerHTML = storageSaved[i].message;
             }
-        }
-        //do nothing if key doesn't exist
-        else{
-            return;
         }
     });
 
@@ -157,7 +154,6 @@ $(document).ready(function () {
                 //save to local storage
                 localStorage.setItem("schedule", JSON.stringify(hourArr));
             }
-
         }
     }
 
